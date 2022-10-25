@@ -5,6 +5,7 @@ public class Rect {
 	public double height;
 	
 	public void showArea() {
-		System.out.println("사각형의 넓이 : " + (this.width*this.height));
+		double area = this.width*this.height;
+		System.out.println("사각형의 넓이 : " + area);
 	}
 }
