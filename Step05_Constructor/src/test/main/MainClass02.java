@@ -16,5 +16,11 @@ public class MainClass02 {
 		
 		m1.showInfo();
 		m2.showInfo();
+		
+		m1.num = 3;
+		m1.name = "원숭이";
+		m1.addr = "상도동";
+		
+		m1.showInfo();
 	}
 }
