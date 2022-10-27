@@ -2,7 +2,7 @@ package test.main;
 
 import java.util.Random;
 
-public class QuizMain3 {
+public class Quizmain3 {
    
    public static void main(String[] args) {
       
