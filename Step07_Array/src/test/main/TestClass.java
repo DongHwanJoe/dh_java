@@ -23,20 +23,16 @@ public class TestClass {
 		Random ran = new Random();
 		
 		System.out.println("1번 문제");
-		System.out.println(items[ran.nextInt(5)]);
+		System.out.println(items[ran.nextInt(items.length)]);
 		
 		System.out.println();
 		System.out.println("2번 문제");
 		String[] results = new String[3];
 		for(int i = 0; i < 3; i++) {
-			int ranNum = ran.nextInt(5);
+			int ranNum = ran.nextInt(items.length);
 			results[i] = items[ranNum];
-			if(i < 2) {
-				System.out.print(results[i]+" | ");
-			}else {
-				System.out.println(results[i]);
-			}
 		}
+		System.out.println(results[0]+" | "+results[1]+" | "+results[2]);
 		
 		if(results[0] == results[1] && results[1] == results[2]) {
 			if(results[0] == items[4]) {
