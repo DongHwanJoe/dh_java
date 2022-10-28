@@ -21,4 +21,43 @@ public class BaseBall {
 		}
 		
 	}
+	
+	public static void ma(int[] a, int n) {
+		int x = 0;
+		
+		Random ranNum = new Random();
+		
+		if(x == n-1) {
+			return;
+		} else if(x == 0) {
+			a[x] = ranNum.nextInt(10);
+		} else {
+			ma(a, x);
+		}
+	}
+	
+	public static void sc(int[] a) {
+		
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
