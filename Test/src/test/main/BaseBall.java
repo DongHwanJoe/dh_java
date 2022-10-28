@@ -1,43 +1,51 @@
 package test.main;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class BaseBall {
 	public static void main(String[] args) {
 		int[] answer = new int[3];
+		int[] myAnswer = new int[3];
 		
-		Random ran = new Random();
+		answer[0] = 3;
+		answer[1] = 2;
+		answer[2] = 8;				
 		
-		for(int i = 0; i < answer.length; i++) {
-			int ranNum = ran.nextInt(10);
-			answer[i] = ranNum;
-			for(int j = 0; j < i; j++) {
-				if(answer[i] == answer[j]) {
-					--i;
-					return;
+		Scanner scan = new Scanner(System.in);
+		
+		//while(true) {
+			//System.out.print("숫자 입력: ");
+			//String str = scan.nextLine();
+			
+			//for(int i = 0; i < myAnswer.length; i++) {
+			//	myAnswer[i] = str.charAt(i) - '0';
+			//}
+			
+			//ac(answer, myAnswer);
+			
+		//}
+	}
+	
+	public static void ac(int[] a, int[] b) {
+		int ball = 0;
+		int strike = 0;
+		
+		for(int i = 0; i < a.length; i++) {
+			for(int j = 0; j < b.length; j++) {
+				if(a[i] == b[j] && j == i) {
+					strike++;
+				}else if(a[i] == b[j] && j != i) {
+					ball++;
 				}
 			}
-			System.out.println(answer[i]);
 		}
 		
-	}
-	
-	public static void ma(int[] a, int n) {
-		int x = 0;
-		
-		Random ranNum = new Random();
-		
-		if(x == n-1) {
-			return;
-		} else if(x == 0) {
-			a[x] = ranNum.nextInt(10);
-		} else {
-			ma(a, x);
+		if(strike == 3) {
+			System.out.println("correct");
+		}else {
+			System.out.println(ball+"ball, "+strike+"strike");
 		}
-	}
-	
-	public static void sc(int[] a) {
-		
 	}
 }
 
