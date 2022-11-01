@@ -75,7 +75,7 @@ public class BaseBall {
 				}else if(a[i] == b[j] && j != i) {
 					ball++;
 				}
-			}
+			} 
 		}
 		
 		if(strike == 3) {
