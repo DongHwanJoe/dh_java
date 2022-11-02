@@ -18,7 +18,7 @@ public class MainClass02 {
 			int result = num2/num1; //몫
 			int result2 = num2%num1; //나머지
 			System.out.println(num2+" 를 "+num1+" 으로 나눈 몫 : "+result);
-			System.out.println(num2+" 를 "+num1+" 으로 나눈 나머지 : "+result);
+			System.out.println(num2+" 를 "+num1+" 으로 나눈 나머지 : "+result2);
 		}catch(NumberFormatException nfe) {
 			System.out.println("숫자 형식으로 입력해주세요");
 		}catch(ArithmeticException ae) {
