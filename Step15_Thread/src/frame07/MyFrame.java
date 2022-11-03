@@ -1,4 +1,4 @@
-package frame05;
+package frame07;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -42,30 +42,25 @@ public class MyFrame extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("카운트 다운을 시작합니다.");
-		//내부 클래스로 객체 생성해서 스레드 시작
-		new InnerCountThread().start();
-		
-	}
-	
-	
-	// Thread 클래스 작성 시 내부클래스로 작성하면 해당 클래스의 필드나 메소드 등을 이용하기 편리하다.
-	class InnerCountThread extends Thread{
-		@Override
-		public void run() {
-			//카운트 값을 저장 할 지역 변수 만들고 초기 값 대입
-			int count = 10;
-			while(true) {
-				System.out.println("현재 카운트: "+count);
-				if(count == 0) {//count가 0이면 while문 탈출
-					break;//반복문을 탈출하면 run() 메소드가 리턴되기 때문에 스레드가 종료된다.
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				//카운트 값을 저장 할 지역 변수 만들고 초기 값 대입
+				int count = 10;
+				while(true) {
+					System.out.println("현재 카운트: "+count);
+					if(count == 0) {//count가 0이면 while문 탈출
+						break;//반복문을 탈출하면 run() 메소드가 리턴되기 때문에 스레드가 종료된다.
+					}
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					count--;
 				}
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				count--;
 			}
-		}
+		}).start();
 	}
 }
