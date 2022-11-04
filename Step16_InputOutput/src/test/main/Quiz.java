@@ -19,6 +19,7 @@ import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -39,19 +40,19 @@ public class Quiz extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new FlowLayout());
 		
-		//객체 생성해서 참조값을 필드에 저장
+		tf = new JTextField(10);
+	    add(tf);
+		
 		appendBtn = new JButton("추가");
 		add(appendBtn);
 		
 		readBtn = new JButton("불러오기");
 		add(readBtn);
 		
-		tf = new JTextField(10);
-	    add(tf);
-	    
 	    ta = new JTextArea();
 	    add(ta);
 	    
+	    ta.setEditable(false);
 		appendBtn.addActionListener(this);
 		readBtn.addActionListener(this);
 		
@@ -72,8 +73,10 @@ public class Quiz extends JFrame implements ActionListener {
 		if(command.equals("추가")) {
 			try {
 				fw = new FileWriter(f, true);
-				fw.write(msg);
+				fw.write(msg+"\r\n");
 				fw.flush();
+				tf.setText("");
+				JOptionPane.showMessageDialog(this, "문자열을 추가했습니다.");
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			} finally {
@@ -88,13 +91,15 @@ public class Quiz extends JFrame implements ActionListener {
 				fr = new FileReader(f);
 				br = new BufferedReader(fr);
 				
+				ta.setText("");
+				
 				while(true) {
 					//개행 기호를 기준으로 한 줄씩 읽어오기 때문에 개행기호는 읽어오지 않는다.
 					String line = br.readLine();
 					if(line == null) {
 						break;
 					}
-					ta.setText(line);
+					ta.append(line+ "\r\n");
 				}
 			} catch (Exception e1) {
 				e1.printStackTrace();
