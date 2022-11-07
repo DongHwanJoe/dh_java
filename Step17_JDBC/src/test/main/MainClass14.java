@@ -14,10 +14,12 @@ public class MainClass14 {
 		 */
 		MemberDao dao = new MemberDao();
 		
+		//insert()메소드에 전달할 MemberDto 객체 생성 및 회원정보 추가
 		MemberDto dto = new MemberDto();
 		dto.setName(name);
 		dto.setAddr(addr);
 		
+		//MemberDao 객체를 이용해 회원정보를 추가하고 성공 여부를 리턴
 		boolean isSuccess = dao.insert(dto);
 		
 		if(isSuccess) {
