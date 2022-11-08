@@ -159,37 +159,61 @@ public class MemberFrame extends JFrame
 				JOptionPane.showMessageDialog(this, "삭제할 row를 선택하세요.");
 				return;
 			}
-			//2. DefaultTableModel에서 해당 인덱스의 table row에서 삭제할 회원의 번호을 읽어오기
-			int num = (int)model.getValueAt(rowNum, 0);
-			//3. MemberDao 객체를 이용해서 DB에서 삭제하고
-			new MemberDao().delete(num);
-			//4. JTable 새로고침
-			displayMember();
+			
+			int result = JOptionPane.showConfirmDialog(this, "선택된 row를 삭제 하시겠습니까?");
+			//예를 눌렀을 때 삭제작업이 진행
+			if(result == JOptionPane.YES_OPTION) {
+				//2. DefaultTableModel에서 해당 인덱스의 table row에서 삭제할 회원의 번호을 읽어오기
+				int num = (int)model.getValueAt(rowNum, 0);
+				//3. MemberDao 객체를 이용해서 DB에서 삭제하고
+				new MemberDao().delete(num);
+				//4. JTable 새로고침
+				displayMember();
+			}
 		}
 	}
 
 	//table에 특정 이벤트가 발생했을때 호출되는 메소드
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		String property = evt.getPropertyName();
+		/*
+		int rowNum = table.getSelectedRow();
 		
-		if(property.equals("tabelCellEditor")) {
-			while(table.isEditing()) {
-				int rowNum = table.getSelectedRow();
-				int num = (int)model.getValueAt(rowNum, 0);
-				String name = (String)model.getValueAt(rowNum, 1);
-				String addr = (String)model.getValueAt(rowNum, 2);
-				MemberDto dto = new MemberDto();
-				dto.setNum(num);
-				dto.setName(name);
-				dto.setAddr(addr);
-				new MemberDao().update(dto);
-			}
+		if(!table.isEditing() && rowNum != -1) {
+			int num = (int)model.getValueAt(rowNum, 0);
+			String name = (String)model.getValueAt(rowNum, 1);
+			String addr = (String)model.getValueAt(rowNum, 2);
+			MemberDto dto = new MemberDto();
+			dto.setNum(num);
+			dto.setName(name);
+			dto.setAddr(addr);
+			new MemberDao().update(dto);
 		}
+		*/
+		
+		//풀이
+		//만일 테이블의 수정 사항을 DB에 수정 반영 할 적당한 시점이 되면
+		if(evt.getPropertyName().equals("tableCellEditor") && !table.isEditing()) {
+			//현재 선택된 row의 정보를 DB에 수정 반영한다.
+			//변화된 값을 읽어와서 DB에 반영한다.
+			//수정된 칼럼에 있는 row 전체의 값을 읽어온다.
+			int selectedIndex = table.getSelectedRow();
+			int num = (int)model.getValueAt(selectedIndex, 0);
+			String name = (String)model.getValueAt(selectedIndex, 1);
+			String addr = (String)model.getValueAt(selectedIndex, 2);
+			//수정할 회원의 정보를 MemberDto 객체에 담고
+			MemberDto dto = new MemberDto(num, name, addr);
+			//DB에 저장하기
+			new MemberDao().update(dto);
+			//선택된 row clear
+			table.clearSelection();
+		}
+		
+		/*
 		System.out.println("property change!");
 		System.out.println("property name:"+evt.getPropertyName());
 		
 		System.out.println("isEditing:"+table.isEditing());
-		
+		*/
 	}
 }
